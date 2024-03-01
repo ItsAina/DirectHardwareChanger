@@ -243,12 +243,10 @@ def MacAddressChanger():
    
     active_network_adapters_process = subprocess.run(['powershell', '-Command', get_active_network_adapters_script], capture_output=True, text=True)
 
-    #
     if active_network_adapters_process.returncode == 0 and active_network_adapters_process.stdout.strip():
         active_network_adapters = active_network_adapters_process.stdout.strip().splitlines()
         print("Active network adapters:", active_network_adapters)
 
-        # Define the list of network adapters to change their MAC addresses
         network_adapters_to_change = [
             ("Ethernet", RandomMacAddressgen),
             ("Ethernet 2", RandomMacAddressgen2),
