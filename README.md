@@ -1,1 +1,1 @@
-Before using this program install VolumeID program
+Before using this program. Install VolumeID program
