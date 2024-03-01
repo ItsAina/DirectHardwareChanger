@@ -240,10 +240,10 @@ def MacAddressChanger():
     Get-NetAdapter | Where-Object {$_.Status -eq 'Up'} | Select-Object -ExpandProperty Name
     """
 
-    # Execute the PowerShell script to get the list of active network adapters
+   
     active_network_adapters_process = subprocess.run(['powershell', '-Command', get_active_network_adapters_script], capture_output=True, text=True)
 
-    # Check if at least one active network adapter is found
+    #
     if active_network_adapters_process.returncode == 0 and active_network_adapters_process.stdout.strip():
         active_network_adapters = active_network_adapters_process.stdout.strip().splitlines()
         print("Active network adapters:", active_network_adapters)
@@ -257,29 +257,27 @@ def MacAddressChanger():
             ("Ethernet 4",RandomMacAddressgen5)
         ]
 
-        # Iterate over the network adapters and their corresponding MAC addresses
+      
         for adapter_name, mac_address in network_adapters_to_change:
-            # Check if the adapter is active and in the list of active adapters
             if adapter_name in active_network_adapters:
-                # Define the PowerShell script to change the MAC address for the current adapter
                 powershell_script = f"""
                 try {{
                     Set-NetAdapter -Name "{adapter_name}" -MacAddress "{mac_address}" -ErrorAction Stop -Confirm:$False
                     Write-Output "MAC address for '{adapter_name}' set successfully"
                 }}
                 catch {{
-                    # Handle any errors that occur during the operation
+                   
                     Write-Output "Error setting MAC address for '{adapter_name}': $_"
                 }}
                 finally {{
-                    # Perform cleanup or finalization tasks (optional)
+                  
                 }}
                 """
 
-                # Execute the PowerShell script to change the MAC address
+               
                 process = subprocess.run(['powershell', '-Command', powershell_script], capture_output=True, text=True)
 
-                # Print the output and error messages
+               
                 print(f"Output for '{adapter_name}':", process.stdout.strip())
                 print(f"Errors for '{adapter_name}':", process.stderr.strip())
 
