@@ -240,7 +240,6 @@ def MacAddressChanger():
     Get-NetAdapter | Where-Object {$_.Status -eq 'Up'} | Select-Object -ExpandProperty Name
     """
 
-   
     active_network_adapters_process = subprocess.run(['powershell', '-Command', get_active_network_adapters_script], capture_output=True, text=True)
 
     if active_network_adapters_process.returncode == 0 and active_network_adapters_process.stdout.strip():
@@ -255,7 +254,6 @@ def MacAddressChanger():
             ("Ethernet 4",RandomMacAddressgen5)
         ]
 
-      
         for adapter_name, mac_address in network_adapters_to_change:
             if adapter_name in active_network_adapters:
                 powershell_script = f"""
@@ -264,18 +262,14 @@ def MacAddressChanger():
                     Write-Output "MAC address for '{adapter_name}' set successfully"
                 }}
                 catch {{
-                   
                     Write-Output "Error setting MAC address for '{adapter_name}': $_"
                 }}
                 finally {{
-                  
                 }}
                 """
 
-               
                 process = subprocess.run(['powershell', '-Command', powershell_script], capture_output=True, text=True)
 
-               
                 print(f"Output for '{adapter_name}':", process.stdout.strip())
                 print(f"Errors for '{adapter_name}':", process.stderr.strip())
 
