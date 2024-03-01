@@ -308,7 +308,7 @@ def main():
     thread_6 = threading.Thread(target=MacAddressChanger())
     thread_6.start()
     time.sleep(3)
-    # os.system("shutdown /r /t 1")
+    os.system("shutdown /r /t 1")
     
 
 
