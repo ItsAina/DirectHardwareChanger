@@ -44,7 +44,6 @@ value_name = "MachineGuid"
 value_name2 = "MachineId"
 value_name3 = "InstallationId"
 value_name5 = "ComputerHardwareId"
-value_name6 = "ComputerHardwareIds"
 
 
 random_string = (
