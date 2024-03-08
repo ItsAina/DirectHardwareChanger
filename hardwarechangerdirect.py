@@ -20,14 +20,9 @@ def generate_hex2(length):
 def generate_hex3(length):
     return ''.join(random.choice('ABCDEF' + string.digits) for _ in range(length))
 
-def generate_hex4(length):
-    return ''.join(random.choice('abcdef' + string.digits) for _ in range(length))
+def RandomWinRegistry():
+    return ''.join(random.choice('abcdef'+ string.digits) for _ in range(32))
 
-def generate_hex5(length):
-    return ''.join(random.choice('abcdef' + string.digits) for _ in range(length))
-
-def hardwareids():
-    return ('{' + generate_hex5(8) + '-' +'-'.join(generate_hex5(4) for _ in range(3)) + '-' +generate_hex5(12) + '}\n' for _ in range(10))
 
 
 def KillProcessGameforge():
@@ -64,13 +59,11 @@ random_string3 = (
     generate_hex3(12) + '}'
 )
 
-random_string4 = (
-    '{' + generate_hex4(8) + '-' +
-    '-'.join(generate_hex4(4) for _ in range(3)) + '-' +
-    generate_hex4(12) + '}'
-)
+def Seperator():
+    random_key = RandomWinRegistry()
+    return '-'.join([random_key[:8], random_key[8:12], random_key[12:16], random_key[16:20], random_key[20:]])
 
-
+data = Seperator()
 
 
 def changinguuidandguid():
@@ -105,24 +98,14 @@ def changinguuidandguid():
 
     key5 = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SYSTEM\CurrentControlSet\Control\SystemInformation", 0, winreg.KEY_SET_VALUE)
     try:
-        winreg.SetValueEx(key5, value_name5, 0, winreg.REG_SZ, random_string4)
+        winreg.SetValueEx(key5, value_name5, 0, winreg.REG_SZ, data)
     except Exception as e:
         print(f"Error updating registry5: {e}")
-        operation_completed = False
     finally:
         winreg.CloseKey(key5)
-
-    key6 = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SYSTEM\CurrentControlSet\Control\SystemInformation", 0, winreg.KEY_SET_VALUE)
-    try:
-        winreg.SetValueEx(key6, value_name6, 0, winreg.REG_SZ, hardwareids)
-
-    except Exception as e:
-        print(f"Error updating registry6: {e}")
-        operation_completed = False
-    finally:
-        winreg.CloseKey(key6)
         operation_completed = True
 
+   
     if operation_completed:
         print("Operation completed for all registries ")
 
